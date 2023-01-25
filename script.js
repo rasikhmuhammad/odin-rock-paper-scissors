@@ -59,14 +59,14 @@ function game() {
     let computerScore = 0;
 
     for(let i = 0; i < 5; i++) {
-        winner = playRound(computerMove = computerPlay(), userMove = prompt('rock, paper or Scissors?').toLowerCase());
-        if(winner == 'user') {
+        winner = playRound(computerMove = computerPlay(), userMove = prompt('rock, paper or scissors?').toLowerCase());
+        if(winner === 'user') {
             userScore += 1;
         }
-        else if (winner == 'computer') {
+        else if (winner === 'computer') {
             computerScore += 1;
         }
-        else if (winner == 'none') {
+        else if (winner === 'none') {
             continue;
         }
         else {
