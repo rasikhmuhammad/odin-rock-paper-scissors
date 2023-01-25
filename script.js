@@ -1,3 +1,5 @@
+const result = document.querySelector('.display-result');
+
 function computerPlay() {
     let computerMove =  Math.floor(Math.random() * 3);
     let computerPlay;
@@ -19,71 +21,87 @@ function computerPlay() {
 
 function playRound(computerMove, userMove) {
 
-    console.log(computerMove, userMove);
-
     if((userMove == 'rock' && computerMove =='rock') || (userMove =='scissors' && computerMove == 'scissors') || (userMove == 'paper' && computerMove == 'paper')) {
-        console.log("It's a Tie!");
+        result.textContent = "It's a Tie!"
      return 'none';
     }
     else if(userMove == 'rock' && computerMove == 'scissors') {
-        console.log('You win! Rock beats scissors!');
+        result.textContent ='You win! Rock beats scissors!';
         return 'user';
     }
     else if(userMove == 'scissors' && computerMove == 'paper') {
-        console.log('You win! Scissors beats Paper!');
+        result.textContent ='You win! Scissors beats Paper!';
         return 'user';
     }
     else if(userMove == 'paper' && computerMove == 'rock') {
-        console.log('You win! Paper beats Rock!');
+        result.textContent ='You win! Paper beats Rock!';
         return 'user';
     }
     else if(computerMove == 'rock' && userMove == 'scissors') {
-        console.log('You Lose! Rock beats scissors!');
+        result.textContent ='You Lose! Rock beats scissors!';
         return 'computer';
     }
     else if(computerMove == 'scissors' && userMove == 'paper') {
-        console.log('You Lose! Scissors beats Paper!');
+        result.textContent ='You Lose! Scissors beats Paper!';
         return 'computer';
     }
     else if(computerMove == 'paper' && userMove == 'rock') {
-        console.log('You Lose! Paper beats Rock!');
+        result.textContent ='You Lose! Paper beats Rock!';
         return 'computer';
     }
-    else console.log('something went horribly wrong!');
+    else result.textContent ='something went horribly wrong!';
 }
 
 function game() {
 
     let winner;
-    let userScore = 0; 
-    let computerScore = 0;
+    const userScore = document.querySelector('div.user-score');
+    const computerScore = document.querySelector('div.computer-score');
 
-    for(let i = 0; i < 5; i++) {
-        winner = playRound(computerMove = computerPlay(), userMove = prompt('rock, paper or scissors?').toLowerCase());
-        if(winner === 'user') {
-            userScore += 1;
-        }
-        else if (winner === 'computer') {
-            computerScore += 1;
-        }
-        else if (winner === 'none') {
-            continue;
-        }
-        else {
-            console.log('something went horribly wrong!');
-            break;
-        }
-    }
+    let user = 0;
+    let computer = 0;
 
-    if (userScore > computerScore) {
-        console.log('You win!');
-    }
+    userScore.textContent = user;
+    computerScore.textContent = computer;
 
-    else if (userScore < computerScore) {
-        console.log('you lose!');
-    }
+    const buttons = document.querySelectorAll('.game-ui button');
 
-    else console.log("it's a tie!");
+    buttons.forEach(button => {
+        button.addEventListener('click', (e) => {
+
+            if(user !== 5 && computer!==5) {
+                winner = playRound(computerMove = computerPlay(), userMove = e.target.getAttribute('data-key').toLowerCase());
+
+                if(winner === 'user') {
+                    user += 1;
+                    userScore.textContent = user;
+                }
+                else if (winner === 'computer') {
+                    computer+= 1;
+                    computerScore.textContent = computer;
+                }
+
+                if(user === 5) {
+                    setTimeout( ()=> {
+                        result.textContent = 'You Win!';
+                        userScore.classList.toggle('winner');
+                    }, 1500);  
+                }
+                else if(computer === 5) {
+                    setTimeout( () => {
+                        result.textContent = 'You Lose!';
+                        computerScore.classList.toggle('winner');
+                    }, 1500);    
+                }
+            }
+
+            else {
+                console.log(e);
+                alert('reload for new game!');
+                return;
+            }
+        });
+    });
 }
 
 game();

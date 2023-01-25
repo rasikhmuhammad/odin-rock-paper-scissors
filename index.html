@@ -7,8 +7,28 @@
         <meta charset = 'utf-8'>
         <meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
         <link rel="stylesheet" href="./styles.css">
+        <script src="./script.js" defer></script>
     </head>
     <body>
-        <script src="./script.js"></script>
+        <header>
+            <div class="score-board">
+                <div>
+                    <p>You</p>
+                    <div class="score-card user-score">0</div>
+                </div>
+                <div>
+                    <div class="score-card computer-score">0</div>
+                    <p>Computer</p>
+                </div>
+            </div>
+
+            <div class="display-result"></div>
+        </header>
+    
+        <div class = "game-ui container">
+            <button data-key = "rock">rock</button>
+            <button data-key = "paper">paper</button>
+            <button data-key = "scissors">scissors</button>
+        </div>
     </body>
 </html>
